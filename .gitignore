@@ -17,8 +17,6 @@ obj/
 *.snupkg
 .nuget/
 
-# Ignore publish outputs
-wwwroot/
 
 # Ignore Rider project files
 .idea/

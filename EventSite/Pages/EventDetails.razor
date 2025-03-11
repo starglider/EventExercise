@@ -1,0 +1,28 @@
+@page "/eventdetails/{id:int}"
+@using EventSite.Services
+@inject EventSite.Services.EventsService EventsService
+
+@code {
+    [Parameter]
+    public int id { get; set; }
+
+    private Event eventDetails;
+
+    protected override async Task OnInitializedAsync()
+    {
+        eventDetails = await EventsService.GetEventByIdAsync(id);
+        if (eventDetails == null)
+        {
+            eventDetails = new Event();
+        }
+    }
+}
+
+@if (eventDetails == null)
+{
+    <p>Event not found</p>
+}
+else
+{
+    <EventCard Event="eventDetails" />
+}

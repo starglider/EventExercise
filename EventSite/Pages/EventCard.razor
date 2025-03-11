@@ -1,0 +1,35 @@
+@using System.ComponentModel.DataAnnotations
+@using Services
+@inject EventsService EventsService
+
+<h3>Event Card</h3>
+
+<div class="event-card">
+    <label for="eventName">Event Name:</label>
+    <input id="eventName" @bind="Event.Name" />
+    <br>
+
+    <label for="eventDate">Event Date:</label>
+    <input id="eventDate" type="date" @bind="Event.Date" />
+<br>
+
+
+    <label for="eventDescription">Event Description:</label>
+    <textarea id="eventDescription" @bind="Event.Description"></textarea>
+<br>
+    <label for="eventLocation">Event Location:</label>
+    <input id="eventLocation" @bind="Event.Location" />
+<br>    
+</div>
+<button @onclick="SaveEvent">Save Event</button>
+
+
+@code {
+    [Parameter]
+    [Required]
+    public Event Event { get; set; } = new();
+    private void SaveEvent(MouseEventArgs args)
+    {
+        EventsService.SaveEvent(Event);
+    }
+}

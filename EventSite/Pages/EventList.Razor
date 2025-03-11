@@ -1,0 +1,57 @@
+@page "/eventlist"
+@using EventSite.Services
+@inject EventSite.Services.EventsService EventsService
+
+<h3>Event List</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Event Name</th>
+            <th>Date</th>
+            <th>Location</th>
+            <th>Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var eventItem in Events)
+        {
+            <tr>
+                <td>@eventItem.Name</td>
+                <td>@eventItem.Date.ToString("MM/dd/yyyy")</td>
+                <td>@eventItem.Location</td>
+                <td>
+                    <a href="/eventdetails/@eventItem.Id" class="btn btn-primary">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<button class="btn btn-primary" @onclick="ShowAddEventPanel">Add Event</button>
+
+@if (isAddEventPanelVisible)
+{
+    <div class="card mt-3">
+        wait, this is not the right place to add a new event
+        <EventCard Event="newEvent" />
+            </div>
+}
+
+
+@code {
+    private List<Event> Events = new();
+
+    private bool isAddEventPanelVisible = false;
+    private Event newEvent = new Event();
+
+    private void ShowAddEventPanel()
+    {
+        isAddEventPanelVisible = true;
+    }
+
+
+    protected override void OnInitialized()
+    {
+        Events = EventsService.GetAllEvents();
+    }
+}
