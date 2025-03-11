@@ -4,54 +4,55 @@
 @inject NavigationManager NavigationManager
 
 <h3>Event Card</h3>
+<EditForm Model="@Event" OnValidSubmit="@SaveEvent">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
 
-<div class="event-card">
-    <label for="eventName">Event Name:</label>
-    <input id="eventName" @bind="Event.Name" size="50"/>
-    <br>
+    <div class="event-card">
+        <label for="eventName">Event Name:</label>
+        <input id="eventName" @bind="Event.Name" size="50"/>
+        <br>
 
-    <label for="eventDate">Event Date:</label>
-    <input id="eventDate" type="date" @bind="Event.Date"/>
+        <label for="eventDate">Event Date:</label>
+        <input id="eventDate" type="date" @bind="Event.Date"/>
+        <br>
 
-<br>
+        <label for="eventDescription">Event Description:</label>
+        <textarea id="eventDescription" @bind="Event.Description"></textarea>
+        <br>
+        <label for="eventLocation">Event Location:</label>
+        <input id="eventLocation" @bind="Event.Location" size="50"/>
+        <br>
 
-<label for="eventDescription">Event Description:</label>
-<textarea id="eventDescription" @bind="Event.Description"></textarea>
-<br>
-<label for="eventLocation">Event Location:</label>
-<input id="eventLocation" @bind="Event.Location" size="50"/>
-<br>
+        <style>
+            .message-box {
+                border: 1px solid #ccc;
+                background-color: #f9f9f9;
+                padding: 10px;
+                margin-top: 10px;
+                border-radius: 5px;
+                text-align: center;
+            }
+        </style>
 
-
-    <style>
-        .message-box {
-            border: 1px solid #ccc;
-            background-color: #f9f9f9;
-            padding: 10px;
-            margin-top: 10px;
-            border-radius: 5px;
-            text-align: center;
-        }
-    </style>
-
-    <div class="message-box">
-        <p>@message</p>
+        <div class="message-box">
+            <p>@message</p>
+        </div>
+        <br>    
     </div>
-    
-<br>    
-</div>
-<button @onclick="SaveEvent">Save Event</button>
-
+    <button type="submit">Save Event</button>
+</EditForm>
 
 @code {
     [Parameter]
     [Required]
     public Event Event { get; set; } = new();
     public string message { get; set; } = "";
-    private async Task SaveEvent(MouseEventArgs args)
+
+    private async Task SaveEvent()
     {
         EventsService.SaveEvent(Event);
-        message = "Event "+ Event.Name + " Saved. Redirecting to Event List...";
+        message = "Event " + Event.Name + " Saved. Redirecting to Event List...";
         Event = new Event();
         await Task.Delay(3000);
         message = "";
