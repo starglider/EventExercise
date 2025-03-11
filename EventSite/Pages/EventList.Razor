@@ -11,6 +11,7 @@
             <th>Date</th>
             <th>Location</th>
             <th>Details</th>
+            <th>Registration</th>
         </tr>
     </thead>
     <tbody>
@@ -22,6 +23,9 @@
                 <td>@eventItem.Location</td>
                 <td>
                     <a href="/eventdetails/@eventItem.Id" class="btn btn-primary">Details</a>
+                </td>
+                <td>
+                    <a href="/registration/@eventItem.Id" class="btn btn-primary">Registration</a>
                 </td>
             </tr>
         }

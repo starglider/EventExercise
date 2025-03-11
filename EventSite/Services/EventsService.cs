@@ -65,5 +65,14 @@ namespace EventSite.Services
         {
             return await Task.Run(() => _events.FirstOrDefault(e => e.Id == eventId));
         }
+
+        public async Task AttendEventAsync(int eventId, string attendee)
+        {
+            var eventToAttend = await Task.Run(() => _events.FirstOrDefault(e => e.Id == eventId));
+            if (eventToAttend != null)
+            {
+                eventToAttend.Attendees.Add(attendee);
+            }
+        }
     }
 }

@@ -17,6 +17,7 @@ namespace EventSite.Services
             public string Description { get; set; } = string.Empty;
             [Required]
             public string Location { get; set; } = string.Empty;
+            public List<string> Attendees { get; set; } = new List<string>();
         }
     
 }
